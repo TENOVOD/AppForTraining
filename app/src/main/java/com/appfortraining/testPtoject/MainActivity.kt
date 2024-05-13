@@ -32,14 +32,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.appfortraining.models.Exercise
+import com.appfortraining.views.ExerciseViewModelFactory
+import com.appfortraining.views.Main
+import com.appfortraining.vm.ExerciseViewModel
 
-
-class UserViewModelFactory(val application: Application) :
-    ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return UserViewModel(application) as T
-    }
-}
 
 class MainActivity : ComponentActivity() {
 
@@ -49,10 +46,10 @@ class MainActivity : ComponentActivity() {
             val owner = LocalViewModelStoreOwner.current
 
             owner?.let {
-                val viewModel: UserViewModel = viewModel(
+                val viewModel: ExerciseViewModel = viewModel(
                     it,
                     "UserViewModel",
-                    UserViewModelFactory(LocalContext.current.applicationContext as Application)
+                    ExerciseViewModelFactory(LocalContext.current.applicationContext as Application)
                 )
                 Main(viewModel)
             }
@@ -60,42 +57,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-@Composable
-fun Main(vm: UserViewModel = viewModel()) {
-    val userList by vm.userList.observeAsState(listOf())
-    Column {
-        OutlinedTextField(vm.userName, modifier= Modifier.padding(8.dp), label = { Text("Name") }, onValueChange = {vm.changeName(it)})
-        OutlinedTextField(vm.userAge.toString(), modifier= Modifier.padding(8.dp), label = { Text("Age") },
-            onValueChange = {vm.changeAge(it)},
-            keyboardOptions = KeyboardOptions(keyboardType= KeyboardType.Number)
-        )
-        Button({ vm.addUser() }, Modifier.padding(8.dp)) {Text("Add", fontSize = 22.sp)}
-        UserList(users = userList, delete = {vm.deleteUser(it)})
-    }
-}
-@Composable
-fun UserList(users:List<User>, delete:(Int)->Unit) {
-    LazyColumn(Modifier.fillMaxWidth()) {
-        item{ UserTitleRow()}
-        items(users) {u -> UserRow(u, {delete(u.id)})  }
-    }
-}
-@Composable
-fun UserRow(user:User, delete:(Int)->Unit) {
-    Row(Modifier .fillMaxWidth().padding(5.dp)) {
-        Text(user.id.toString(), Modifier.weight(0.1f), fontSize = 22.sp)
-        Text(user.name, Modifier.weight(0.2f), fontSize = 22.sp)
-        Text(user.age.toString(), Modifier.weight(0.2f), fontSize = 22.sp)
-        Text("Delete", Modifier.weight(0.2f).clickable { delete(user.id) }, color=Color(0xFF6650a4), fontSize = 22.sp)
-    }
-}
-@Composable
-fun UserTitleRow() {
-    Row(Modifier.background(Color.LightGray).fillMaxWidth().padding(5.dp)) {
-        Text("Id", color = Color.White,modifier = Modifier.weight(0.1f), fontSize = 22.sp)
-        Text("Name", color = Color.White,modifier = Modifier.weight(0.2f), fontSize = 22.sp)
-        Text("Age", color = Color.White, modifier = Modifier.weight(0.2f), fontSize = 22.sp)
-        Spacer(Modifier.weight(0.2f))
-    }
-}

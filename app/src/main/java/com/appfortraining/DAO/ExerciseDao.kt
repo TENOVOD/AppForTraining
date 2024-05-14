@@ -15,7 +15,7 @@ interface ExerciseDao {
     @Insert
     fun addExercise(exercise: Exercise)
 
-    @Query("DELETE FROM exercises WHERE exerciseId=:id")
+    @Query("DELETE FROM exercises WHERE exercise_id=:id")
     fun deleteExercise(id:Int)
 
 }

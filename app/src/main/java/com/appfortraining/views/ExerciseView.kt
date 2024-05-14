@@ -8,11 +8,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,6 +54,22 @@ fun Main(vm: ExerciseViewModel = viewModel()) {
             keyboardOptions = KeyboardOptions(keyboardType= KeyboardType.Number),
             onValueChange = { vm.changeRepetition(it) }
         )
+        Row(modifier = Modifier.padding(8.dp)) {
+            RadioButton(selected = vm.isWeightEnable, onClick = { vm.onWeightOptionChanged(true) })
+            Text(text = "Yes")
+            Spacer(modifier = Modifier.width(8.dp))
+            RadioButton(selected = !vm.isWeightEnable, onClick = { vm.onWeightOptionChanged(false) })
+            Text(text = "No")
+        }
+        if(vm.isWeightEnable){
+            OutlinedTextField(
+                value = vm.exerciseWeight.toString(),
+                modifier = Modifier.padding(8.dp),
+                label = { Text("Weight") },
+                keyboardOptions = KeyboardOptions(keyboardType= KeyboardType.Number),
+                onValueChange = { vm.changeWeight(it) }
+            )
+        }
         Button({ vm.addExercise() }, Modifier.padding(8.dp)) {Text("Add", fontSize = 22.sp)}
         ExerciseList(exercises = exerciseList, delete = {vm.deleteExercise(it)})
     }
@@ -74,10 +92,9 @@ fun ExerciseRow(exercise: Exercise, delete:(Int)->Unit) {
         Modifier
             .fillMaxWidth()
             .padding(5.dp)) {
-        Text(exercise.id.toString(), Modifier.weight(0.1f), fontSize = 12.sp)
         Text(exercise.exerciseName, Modifier.weight(0.2f), fontSize = 12.sp)
         Text(exercise.repetitions.toString(), Modifier.weight(0.2f), fontSize = 12.sp)
-        Text(exercise.time.toString(), Modifier.weight(0.2f), fontSize = 12.sp)
+        Text(exercise.weight.toString(), Modifier.weight(0.2f), fontSize = 12.sp)
 
         Text("Delete",
             Modifier
@@ -92,10 +109,9 @@ fun ExerciseTitleRow() {
             .background(Color.LightGray)
             .fillMaxWidth()
             .padding(5.dp)) {
-        Text("Id", color = Color.White,modifier = Modifier.weight(0.1f), fontSize = 20.sp)
         Text("Name", color = Color.White,modifier = Modifier.weight(0.2f), fontSize = 20.sp)
-        Text("Repetition", color = Color.White, modifier = Modifier.weight(0.2f), fontSize = 20.sp)
-        Text("Time", color = Color.White, modifier = Modifier.weight(0.2f), fontSize = 20.sp)
+        Text("R", color = Color.White, modifier = Modifier.weight(0.2f), fontSize = 20.sp)
+        Text("W", color = Color.White, modifier = Modifier.weight(0.2f), fontSize = 20.sp)
         Spacer(Modifier.weight(0.2f))
     }
 }

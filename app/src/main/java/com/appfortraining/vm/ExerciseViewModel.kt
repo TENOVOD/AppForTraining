@@ -16,6 +16,8 @@ class ExerciseViewModel(application: Application) : ViewModel(){
     private val repository: ExerciseRepository
     var exerciseName by mutableStateOf("")
     var exerciseRepetitions by mutableStateOf(0)
+    var isWeightEnable by mutableStateOf(false)
+    var exerciseWeight by mutableStateOf("")
 
     init{
         val exerciseDb = TrainingRoomDatabase.getInstance(application)
@@ -28,13 +30,20 @@ class ExerciseViewModel(application: Application) : ViewModel(){
         exerciseName=value
     }
 
+    fun onWeightOptionChanged(enable: Boolean){
+        isWeightEnable=enable
+    }
+
+    fun changeWeight(weight:String){
+        exerciseWeight=weight
+    }
+
     fun changeRepetition(value:String){
         exerciseRepetitions=value.toIntOrNull()?:exerciseRepetitions
     }
 
     fun addExercise(){
-        val unixTimeSeconds = System.currentTimeMillis()/1000
-        repository.addExercise(Exercise(exerciseName,exerciseRepetitions,unixTimeSeconds))
+        repository.addExercise(Exercise(exerciseName,exerciseRepetitions,exerciseWeight.toFloat()))
     }
 
     fun deleteExercise(id: Int){

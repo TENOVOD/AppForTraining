@@ -10,12 +10,12 @@ import com.appfortraining.models.Exercise
 interface ExerciseDao {
 
     @Query("SELECT*FROM exercises")
-    fun getAllExercises(): LiveData<List<Exercise>>
+     fun getAllExercises(): LiveData<List<Exercise>>
 
     @Insert
-    fun addExercise(exercise: Exercise)
+    suspend fun addExercise(exercise: Exercise)
 
     @Query("DELETE FROM exercises WHERE exercise_id=:id")
-    fun deleteExercise(id:Int)
+    suspend fun deleteExercise(id:Int)
 
 }

@@ -9,7 +9,6 @@ import com.appfortraining.models.Day
 
 @Dao
 interface DayDao {
-
     @Query("SELECT*FROM days")
     fun getAllDays(): LiveData<List<Day>>
 

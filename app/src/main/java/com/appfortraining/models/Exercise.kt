@@ -30,6 +30,12 @@ var startTime: Long = 0,
 var endTime:Long = 0
 ){
 
+    constructor(exerciseName: String,repetitions: Int) : this() {
+        this.exerciseName=exerciseName
+        this.repetitions=repetitions
+        this.startTime= System.currentTimeMillis()/1000
+
+    }
     constructor(exerciseName: String,repetitions: Int,weight: Float) : this() {
         this.exerciseName=exerciseName
         this.repetitions=repetitions

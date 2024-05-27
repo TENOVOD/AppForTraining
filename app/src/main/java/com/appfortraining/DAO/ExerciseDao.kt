@@ -6,16 +6,3 @@ import androidx.room.Insert
 import androidx.room.Query
 import com.appfortraining.models.Exercise
 
-@Dao
-interface ExerciseDao {
-
-    @Query("SELECT*FROM exercises")
-     fun getAllExercises(): LiveData<List<Exercise>>
-
-    @Insert
-    suspend fun addExercise(exercise: Exercise)
-
-    @Query("DELETE FROM exercises WHERE exercise_id=:id")
-    suspend fun deleteExercise(id:Int)
-
-}

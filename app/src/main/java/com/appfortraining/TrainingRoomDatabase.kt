@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.appfortraining.DAO.DayDao
 import com.appfortraining.DAO.DayExercisesDao
 import com.appfortraining.DAO.ExerciseDao
 import com.appfortraining.models.Day
@@ -13,6 +14,7 @@ import com.appfortraining.models.Exercise
 @Database(entities = [Exercise::class, Day::class], version = 1)
 abstract class TrainingRoomDatabase : RoomDatabase(){
     abstract fun exerciseDao():ExerciseDao
+    abstract fun dayDao():DayDao
 
     companion object{
         private var INSTANCE: TrainingRoomDatabase?=null

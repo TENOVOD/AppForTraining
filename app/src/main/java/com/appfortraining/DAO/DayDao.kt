@@ -12,7 +12,7 @@ interface DayDao {
     @Query("SELECT*FROM days")
     fun getAllDays(): LiveData<List<Day>>
 
-    @Query("SELECT*FROM days WHERE day_name=:date LIMIT 1")
+    @Query("SELECT*FROM days WHERE day_date=:date LIMIT 1")
     fun getDayByDate(date:String):Day?
 
     @Insert

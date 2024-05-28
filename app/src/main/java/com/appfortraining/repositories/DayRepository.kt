@@ -18,25 +18,25 @@ class DayRepository(
 
     val dayList: LiveData<List<Day>> = dayDao.getAllDays()
 
+    //add day after checking for the similar record
     fun addDay() {
         val currentTimeInMilliseconds = System.currentTimeMillis() / 1000
         val dayName = convertUnixTimestampToDayOfWeek(currentTimeInMilliseconds)
+        val dayDate = convertUnixTimestampToDate(currentTimeInMilliseconds)
 
         coroutineScope.launch(Dispatchers.IO) {
 
-            val existDay = dayDao.getDayByDate(dayName)
+            val existDay = dayDao.getDayByDate(dayDate)
             if (existDay == null) {
                 val day = Day(
-                    unixTimestamp = currentTimeInMilliseconds,
+                    dayDate = dayDate,
                     dayName = dayName
                 )
                 dayDao.insertDay(day)
                 Log.d("GG", "Im work")
             }
 
-
         }
-
 
     }
 
@@ -44,6 +44,11 @@ class DayRepository(
         val date = Date(timestamp * 1000)
         val dayFormat = SimpleDateFormat("EEEE", Locale.ENGLISH)
         return dayFormat.format(date)
+    }
+    private fun convertUnixTimestampToDate(timestamp: Long): String {
+        val date = Date(timestamp * 1000)
+        val dateFormat = SimpleDateFormat("dd.MM.yy", Locale.getDefault())
+        return dateFormat.format(date)
     }
 
 }

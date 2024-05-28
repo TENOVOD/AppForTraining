@@ -12,8 +12,8 @@ data class Day(
     @ColumnInfo(name = "day_id")
     var dayId: Long = 0,
 
-    @ColumnInfo(name = "unix_timestamp")
-    var unixTimestamp: Long = 0,
+    @ColumnInfo(name = "day_date")
+    var dayDate: String="",
 
     @ColumnInfo(name = "day_name")
     var dayName: String = "",

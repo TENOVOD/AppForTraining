@@ -55,7 +55,7 @@ fun DayRow(day: Day) {
     Column(Modifier.fillMaxWidth()) {
         Row {
             Text(text = day.dayName)
-            Text(text = convertUnixTimestampToDate(day.unixTimestamp))
+            Text(text = day.dayDate)
         }
 
     }

@@ -76,18 +76,18 @@ fun Main(vm: ExerciseViewModel = viewModel()) {
 }
 
 @Composable
-fun ExerciseList(exercises:List<Exercise>,delete:(Int)->Unit){
+fun ExerciseList(exercises:List<Exercise>,delete:(Long)->Unit){
 
     LazyColumn(Modifier.fillMaxWidth()){
         item{ ExerciseTitleRow() }
         items(exercises) { e ->
-            ExerciseRow(exercise = e, { delete(e.id) })
+            ExerciseRow(exercise = e, { delete(e.exerciseId) })
         }
     }
 }
 
 @Composable
-fun ExerciseRow(exercise: Exercise, delete:(Int)->Unit) {
+fun ExerciseRow(exercise: Exercise, delete:(Long)->Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -99,7 +99,7 @@ fun ExerciseRow(exercise: Exercise, delete:(Int)->Unit) {
         Text("Delete",
             Modifier
                 .weight(0.2f)
-                .clickable { delete(exercise.id) }, color= Color(0xFF6650a4), fontSize = 12.sp)
+                .clickable { delete(exercise.exerciseId) }, color= Color(0xFF6650a4), fontSize = 12.sp)
     }
 }
 @Composable

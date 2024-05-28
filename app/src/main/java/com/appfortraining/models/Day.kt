@@ -9,9 +9,8 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "days")
 data class Day(
     @PrimaryKey(autoGenerate = true)
-    @NotNull
     @ColumnInfo(name = "day_id")
-    var id: Int = 0,
+    var dayId: Long = 0,
 
     @ColumnInfo(name = "unix_timestamp")
     var unixTimestamp: Long = 0,

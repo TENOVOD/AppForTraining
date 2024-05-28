@@ -10,7 +10,7 @@ data class DayWithExercises(
     @Embedded val day: Day,
     @Relation(
         parentColumn = "day_id",
-        entityColumn = "exercise_id"
+        entityColumn = "day_id"
     )
     val exercises: LiveData<List<Exercise>>
 )

@@ -44,10 +44,10 @@ class ExerciseViewModel(application: Application) : ViewModel(){
 
     fun addExercise(){
         val res = if (exerciseWeight.isEmpty()) 0f else exerciseWeight.toFloat()
-        repository.addExercise(Exercise(exerciseName,exerciseRepetitions,res))
+        repository.addExercise(Exercise(exerciseName,exerciseRepetitions,res,0))
     }
 
-    fun deleteExercise(id: Int){
+    fun deleteExercise(id: Long){
         repository.deleteExercise(id)
     }
 }

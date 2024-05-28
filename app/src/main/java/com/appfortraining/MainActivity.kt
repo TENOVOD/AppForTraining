@@ -8,8 +8,11 @@ import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.appfortraining.views.DayViewModelFactory
+import com.appfortraining.views.DaysScreen
 import com.appfortraining.views.ExerciseViewModelFactory
 import com.appfortraining.views.Main
+import com.appfortraining.vm.DayViewModel
 import com.appfortraining.vm.ExerciseViewModel
 
 
@@ -21,12 +24,18 @@ class MainActivity : ComponentActivity() {
             val owner = LocalViewModelStoreOwner.current
 
             owner?.let {
-                val viewModel: ExerciseViewModel = viewModel(
+//                val viewModel: ExerciseViewModel = viewModel(
+//                    it,
+//                    "UserViewModel",
+//                    ExerciseViewModelFactory(LocalContext.current.applicationContext as Application)
+//                )
+//                Main(viewModel)
+                val viewModel: DayViewModel = viewModel(
                     it,
                     "UserViewModel",
-                    ExerciseViewModelFactory(LocalContext.current.applicationContext as Application)
+                    DayViewModelFactory(LocalContext.current.applicationContext as Application)
                 )
-                Main(viewModel)
+                DaysScreen(viewModel)
             }
         }
     }

@@ -18,6 +18,9 @@ data class Day(
     @ColumnInfo(name = "day_name")
     var dayName: String = "",
 
+//    @ColumnInfo(name="count_of_repetition")
+//    var countOfRepetition: Int = 0,
+
     @ColumnInfo(name = "is_workout_day")
     var isWorkoutDay: Boolean = false
 )

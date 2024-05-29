@@ -9,7 +9,7 @@ import com.appfortraining.models.Day
 
 @Dao
 interface DayDao {
-    @Query("SELECT*FROM days")
+    @Query("SELECT*FROM days ORDER BY day_id DESC")
     fun getAllDays(): LiveData<List<Day>>
 
     @Query("SELECT*FROM days WHERE day_date=:date LIMIT 1")

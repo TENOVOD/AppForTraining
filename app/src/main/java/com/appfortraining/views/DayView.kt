@@ -30,6 +30,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.appfortraining.models.Day
 import com.appfortraining.vm.DayViewModel
 import java.text.SimpleDateFormat
@@ -46,7 +47,7 @@ class DayViewModelFactory(
 }
 
 @Composable
-fun DaysScreen(vm: DayViewModel = viewModel()) {
+fun DaysScreen(vm: DayViewModel = viewModel(),navController: NavController) {
     val dayList by vm.dayList.observeAsState(listOf())
     DayList(dayList)
 

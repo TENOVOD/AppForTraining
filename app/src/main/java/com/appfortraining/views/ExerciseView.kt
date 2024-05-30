@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.appfortraining.models.Exercise
 
 import com.appfortraining.vm.ExerciseViewModel
@@ -39,7 +40,7 @@ class ExerciseViewModelFactory(val application: Application) : ViewModelProvider
 }
 
 @Composable
-fun Main(vm: ExerciseViewModel = viewModel()) {
+fun ExercisesScreen(vm: ExerciseViewModel = viewModel(),navController: NavController) {
     val exerciseList by vm.exerciseList.observeAsState(listOf())
     Column {
         OutlinedTextField(
